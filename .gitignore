@@ -1,0 +1,10 @@
+*.csv
+*.zip
+*.md
+.imdone/
+.imdoneignore
+kanban/
+__pycache__/
+data/
+log.txt
+saved_settings.py
