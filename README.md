@@ -5,6 +5,7 @@ This script converts every row of all CSV files in the working directory and sub
 This will ***not*** create a Markdown table.
 
 It is still in early alpha, so please have backups!
+
 **The encoding with which the files will be opened is UTF-8. Make sure that your CSV files are in that encoding, otherwise they might get screwed up. Again, please have backups**.
 
 I have tested it with Python 3.9.4. (Because I use typing the Python version needs to be at least 3.5, I haven't checked for the other imported packages.)
