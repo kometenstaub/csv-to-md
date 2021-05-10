@@ -6,8 +6,6 @@ import os
 
 class GetInput:
     def __init__(self):
-        #self.loadSettings:str = "n"
-        #self.addYAML:str = "n"
         self.settings:dict = {}
 
 
