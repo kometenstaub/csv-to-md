@@ -1,8 +1,16 @@
+
 import csv
 import re
-from saved_settings import *
 from settings import Settings
 import os
+
+if os.path.isfile("saved_settings.py"):
+    print("saved_settings.py is already present")
+else:
+    with open("saved_settings.py", "w") as f:
+        f.write( "\"\"\"This is your settings file.\"\"\"\n\n")
+
+from saved_settings import *
 
 class GetInput:
     def __init__(self):
