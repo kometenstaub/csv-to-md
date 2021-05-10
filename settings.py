@@ -109,5 +109,5 @@ class Settings:
 
     def saveSettings(self, settings):
         name = input("Which name should your saved settings have? ")
-        with open("saved_settings.py", "a") as f:
+        with open("saved_settings.py", "a", encoding='utf-8') as f:
             f.write(f"{name.lower()} = " + pprint.pformat(settings) + "\n\n")

@@ -7,7 +7,7 @@ import os
 if os.path.isfile("saved_settings.py"):
     print("saved_settings.py is already present")
 else:
-    with open("saved_settings.py", "w") as f:
+    with open("saved_settings.py", "w", encoding='utf-8') as f:
         f.write( "\"\"\"This is your settings file.\"\"\"\n\n")
 
 from saved_settings import *
@@ -87,7 +87,7 @@ class ReadCreate:
 
     def getYamlKeys(self):
         self.keys:list = []
-        with open(self.csvFiles[0], "r") as csvFile:
+        with open(self.csvFiles[0], "r", encoding='utf-8') as csvFile:
             csvFileReader = csv.reader(csvFile, delimiter=self.settings["delimiter"])
             for row in csvFileReader:
                 # puts all of the  keys for each file in a list
@@ -110,7 +110,7 @@ class ReadCreate:
         # needed for showing and checking the chosen formatting option for each cell
         # needed for saving the entered settings
         addMdSetting = Settings()
-        with open(self.csvFiles[0], "r") as csvFile:
+        with open(self.csvFiles[0], "r", encoding='utf-8') as csvFile:
             csvFileReader = csv.reader(csvFile, delimiter=self.settings["delimiter"])
             for row in csvFileReader:
                 # checks for the first row because that contains the names of the columns
@@ -181,7 +181,7 @@ class ReadCreate:
         # loop through all of the csv files in the current directory and subdirectories
         for file in self.csvFiles:
             # open the current file in read mode
-            with open(file, "r") as currentFile:
+            with open(file, "r", encoding='utf-8') as currentFile:
                 fileReader = csv.reader(currentFile, delimiter=self.settings["delimiter"])
                 # goes through each row in the currently open file and applies the md settings, creates a md file for each row
                 for row in fileReader:
@@ -222,7 +222,7 @@ class ReadCreate:
 
                         try:
                             # creates a .md file in the data folder in append mode
-                            with open (fileName, "a") as f:
+                            with open (fileName, "a", encoding='utf-8') as f:
                                 if self.yaml == True:
                                     yamlLst:list = []
                                     for idx, key in enumerate(self.keys):
@@ -252,7 +252,7 @@ class ReadCreate:
                             if os.path.isfile(fileName):
                                 os.remove(fileName)
                             # log the error to log.txt
-                            with open("log.txt", "a") as m:
+                            with open("log.txt", "a", encoding='utf-8') as m:
                                 m.write(fileName + " -- The contents of this file could not be written.\n")
 
     def splitSubList(self, sublist, formatting):
