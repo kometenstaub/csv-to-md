@@ -1,6 +1,8 @@
 # CSV to Markdown converter
 
-This script converts all CSV files in the working directory and subdirectories into markdown files.
+This script converts every row of all CSV files in the working directory and subdirectories into markdown files according to the formatting settings you choose.
+
+This will ***not*** create a Markdown table.
 
 >It is still in early alpha, so please have backups!
 
@@ -8,11 +10,11 @@ This script converts all CSV files in the working directory and subdirectories i
 
 Clone this repo and put the CSV files you want to convert in the same directory.
 
-Run `csv_to_md-file.py`.
+Run `csv_to_md-file.py` in the terminal.
 
 It will prompt you for your choices.
 
-The outputted Markdown files will appear in the ./data/ subdirectory. (No need to create it, the program takes care of it.)
+The outputted Markdown files will appear in the `./data/` subdirectory. (No need to create it, the program takes care of it.)
 
 ## Options
 
