@@ -32,7 +32,7 @@ You can:
 
 ## How it works
 
-It will let you choose the settings for the first file in the list of CSV files, so all the CSV files you run it on have have
+It will let you choose the settings for the first file in the list of CSV files, so all the CSV files you run it on have to have
 the same columns if you want the settings to be applied consistently/if you want it not to fail.
 
 `saved_settings.py` is not yet created, but will be. All subsequent saved settings will be appended to the file.
