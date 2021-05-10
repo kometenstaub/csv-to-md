@@ -6,7 +6,7 @@ This will ***not*** create a Markdown table.
 
 >It is still in early alpha, so please have backups!
 
-I have tested it on Python 3.9.4. (Because I use typing the Python version needs to be at least 3.5, I haven't checked for the other imported packages.)
+I have tested it with Python 3.9.4. (Because I use typing the Python version needs to be at least 3.5, I haven't checked for the other imported packages.)
 
 ## Usage
 
