@@ -2,6 +2,8 @@
 
 This script converts all CSV files in the working directory and subdirectories into markdown files.
 
+>It is still in early alpha, so please have backups!
+
 ## Usage
 
 Clone this repo and put the CSV files you want to convert in the same directory.
