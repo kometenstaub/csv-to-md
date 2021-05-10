@@ -22,7 +22,7 @@ You can:
 - choose the delimiter of your CSV files
 - the maximum file name length
 - from which column the file name should be generated
-- write the chosen settings to saved_settings.py
+- write the chosen settings to `saved_settings.py`
 - or read settings you set before.
 
 ## How it works
