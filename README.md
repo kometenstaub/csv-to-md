@@ -16,7 +16,7 @@ The Markdown syntax is supposed to support the full range of Markdown formatting
 
 Clone this repo and put the CSV files you want to convert in the same directory.
 
-Run `csv_to_md-file.py` in the terminal.
+Run `csv_to_md-file.py` in the terminal *from the directory in which these files are located*.
 
 It will prompt you for your choices.
 
