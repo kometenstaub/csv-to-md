@@ -229,11 +229,14 @@ class ReadCreate:
                                     for idx, key in enumerate(self.keys):
                                         # replace UTF-8 BOM, should be handled better/perhaps with user option to specify the encoding of the csv file
                                         key = key.replace("\ufeff", "")
-                                        # unpack if list
-                                        if isinstance(key, list):
-                                            value = unformattedLst[idx]
-                                            value = *value,
-                                            yamlLst.append(f"{key}: [\"{value}\"]")
+                                        # unpack if list and make separate values for the key in the YAML
+                                        if len(self.settings["column"][idx]) > 1:
+                                            yamlSubLst:list = unformattedLst[idx].split(self.settings["column"][idx][2])
+                                            yamlSubStr:str = ""
+                                            for el in yamlSubLst:
+                                                yamlSubStr += f"\"{el.strip()}\", "
+                                            yamlSubStr = yamlSubStr.strip(", ")
+                                            yamlLst.append(f"{key.lower()}: [{yamlSubStr}]")
                                         else:
                                             # make value null if there is no value for the key
                                             if len(unformattedLst[idx]) == 0:
