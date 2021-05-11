@@ -10,6 +10,8 @@ This will ***not*** create a Markdown table.
 
 I have tested it with Python 3.9.4. (Because I use typing the Python version needs to be at least 3.5, I haven't checked for the other imported packages.)
 
+The Markdown syntax is supposed to support the full range of Markdown formatting which is available within Obsidian. Therefore it supports some non-standard formatting, which may not work with every Markdown editor.
+
 ## Usage
 
 Clone this repo and put the CSV files you want to convert in the same directory.
