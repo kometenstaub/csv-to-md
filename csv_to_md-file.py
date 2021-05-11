@@ -234,7 +234,10 @@ class ReadCreate:
                                             yamlSubLst:list = unformattedLst[idx].split(self.settings["column"][idx][2])
                                             yamlSubStr:str = ""
                                             for el in yamlSubLst:
-                                                yamlSubStr += f"\"{el.strip()}\", "
+                                                if len(el) == 0:
+                                                    continue
+                                                else:
+                                                    yamlSubStr += f"\"{el.strip()}\", "
                                             yamlSubStr = yamlSubStr.strip(", ")
                                             yamlLst.append(f"{key.lower()}: [{yamlSubStr}]")
                                         else:
@@ -262,7 +265,10 @@ class ReadCreate:
     def splitSubList(self, sublist, formatting):
         sublist_str:str = ""
         for el in sublist:
-            sublist_str += self.returnFormatting(el.strip("\"' "), formatting) + "\n"
+            if len(el) == 0:
+                continue
+            else:
+                sublist_str += self.returnFormatting(el.strip("\"' "), formatting) + "\n"
         return sublist_str.strip("\n")
 
 
