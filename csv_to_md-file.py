@@ -19,7 +19,7 @@ class GetInput:
 
     def choices(self):
         # check if the user wants to load settings
-
+        self.loadSettings:str = ""
         while True:
             self.loadSettings = input("Do you want to load saved settings? Enter \"y\" for yes and \"n\" for no: ")
             self.loadSettings = self.loadSettings.lower().strip()
@@ -29,6 +29,7 @@ class GetInput:
                 # this will load the dictionary from saved_settings.py to the current settings
                 # this works because we import everything from saved_settings
                 self.settings = eval(choice)
+                print(f"These are your selected settings: {self.settings}")
                 break
             elif self.loadSettings == "n":
                instantiateSettings = Settings()
@@ -37,26 +38,26 @@ class GetInput:
                # the settings which are not related to the formatting of the content
                generalSettings = instantiateSettings.setGeneralSettings()
                self.settings = generalSettings
+               print(f"These are your current general settings: {self.settings}")
                break
-        print(f"These are your current general settings: {self.settings}")
         self.mdChoices()
 
 
     def mdChoices(self):
         if self.settings["addYAML"] == "y":
             # instantiate ReadCreate for reading the CSV files
-            print("Now you will set the formatting for all of the columns one by one.")
             instanceFile = ReadCreate(self.settings, True)
             if self.loadSettings == "n":
+                print("Now you will set the formatting for all of the columns one by one.")
                 instanceFile.getCellSettings()
             instanceFile.getYamlKeys()
             # creates the md files
             instanceFile.makeMdFiles()
         else:
             # instantiates the ReadCreate class and finds the csv files
-            print("Now you will set the formatting for all of the columns one by one.")
             instanceFile = ReadCreate(self.settings, False)
             if self.loadSettings == "n":
+                print("Now you will set the formatting for all of the columns one by one.")
                 instanceFile.getCellSettings()
             # creates the md files
             instanceFile.makeMdFiles()
@@ -258,8 +259,8 @@ class ReadCreate:
     def splitSubList(self, sublist, formatting):
         sublist_str:str = ""
         for el in sublist:
-            sublist_str += self.returnFormatting(el.strip("\"' "), formatting) + " "
-        return sublist_str
+            sublist_str += self.returnFormatting(el.strip("\"' "), formatting) + "\n"
+        return sublist_str.strip("\n")
 
 
     def returnFormatting(self, string, formatting):
