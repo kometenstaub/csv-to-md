@@ -157,7 +157,7 @@ class ReadCreate:
                         else:
                             self.settings["column"][el] = [cellFormatting]
 
-                    # ask the user whether they want to save their settings in settings.py
+                    # ask the user whether they want to save their settings in saved_settings.py
                     while True:
                         save_settings = input("Do you want to save these settings? Enter \"y\" for yes and \"n\" for no: ")
                         if save_settings.lower().strip() == "y":
