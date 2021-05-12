@@ -1,6 +1,6 @@
 # CSV to Markdown converter
 
-This script converts every row of all CSV files in the working directory and subdirectories into markdown files according to the formatting settings you choose.
+This script converts every row of all CSV files in the working directory and subdirectories into markdown files according to the formatting settings you choose per column.
 
 This will ***not*** create a Markdown table.
 
@@ -10,7 +10,7 @@ This will ***not*** create a Markdown table.
 
 I have tested it with Python 3.9.4. (Because I use typing the Python version needs to be at least 3.5, I haven't checked for the other imported packages.)
 
-The Markdown syntax is supposed to support the full range of Markdown formatting which is available within Obsidian. Therefore it supports some non-standard formatting, which may not work with every Markdown editor.
+The Markdown syntax is supposed to support the full range of Markdown formatting which is available within Obsidian. Therefore, it supports some non-standard formatting, which may not work with every Markdown editor.
 
 ## Usage
 
@@ -36,10 +36,10 @@ You can:
 
 ## How it works
 
-It will let you choose the settings for the first file in the list of CSV files, so all the CSV files you run it on have to have
-the same columns if you want the settings to be applied consistently/if you want it not to fail.
+It will let you choose the settings for the first file in the list of CSV files the program creates, so all the CSV files you run it on have to have
+the same columns if you want the settings to be applied consistently/if you want it not to fail. (This means that you should only run the script on CSV files with the same number of rows/formatting at once and choose different settings for the next batch.)
 
-`saved_settings.py` is not yet created, but will be. All subsequent saved settings will be appended to the file.
+`saved_settings.py` is not yet created, but will be. That way your settings won't be overwritten when you `pull` to update. All subsequent saved settings will be appended to this file.
 
 ## Example settings
 
