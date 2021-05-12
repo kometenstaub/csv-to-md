@@ -221,18 +221,16 @@ class ReadCreate:
                         fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName)
                         
                         # checks whether there is already a file with the same file name
-                        if os.path.isfile(fileName):
+                        if os.path.isfile(fileName + ".md"):
                             fileName = fileName + "_1"
                             while True:
                                 counter:int = 2
-                                if os.path.isfile(fileName):
+                                if os.path.isfile(fileName + ".md"):
                                     fileName = fileName[:-1] + str(counter)
                                     counter += 1
                                 else:
-                                    fileName += ".md"
                                     break
-                        else:
-                            fileName += ".md"
+                        fileName += ".md"
 
                         try:
                             # creates a .md file in the data folder in append mode
