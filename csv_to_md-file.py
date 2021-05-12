@@ -229,9 +229,10 @@ class ReadCreate:
                                     fileName = fileName[:-1] + str(counter)
                                     counter += 1
                                 else:
+                                    fileName += ".md"
                                     break
-
-                        fileName += ".md"
+                        else:
+                            fileName += ".md"
 
                         try:
                             # creates a .md file in the data folder in append mode
