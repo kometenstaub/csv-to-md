@@ -218,7 +218,7 @@ class ReadCreate:
                         # limit the file name to the specified length 
                         fileName = fileName[:self.settings["fileNameLength"]]
                         # create the final file name
-                        fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName) + ".md"
+                        fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName)
                         
                         # checks whether there is already a file with the same file name
                         if os.path.isfile(fileName):
@@ -230,7 +230,8 @@ class ReadCreate:
                                     counter += 1
                                 else:
                                     break
-                                
+
+                        fileName += ".md"
 
                         try:
                             # creates a .md file in the data folder in append mode
