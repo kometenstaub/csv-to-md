@@ -214,12 +214,23 @@ class ReadCreate:
 
 
                         # accesses the column that was selected for the file name
-                        fileName = str(row[self.settings["fileNameCol"]])
+                        fileName:str = str(row[self.settings["fileNameCol"]])
                         # limit the file name to the specified length 
                         fileName = fileName[:self.settings["fileNameLength"]]
                         # create the final file name
                         fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName) + ".md"
                         
+                        # checks whether there is already a file with the same file name
+                        if os.path.isfile(fileName):
+                            fileName += fileName + "_1"
+                            while True:
+                                counter:int = 2
+                                if os.path.isfile(fileName):
+                                    fileName += fileName[:-1] + str(counter)
+                                    counter += 1
+                                else:
+                                    break
+                                
 
                         try:
                             # creates a .md file in the data folder in append mode
@@ -239,13 +250,13 @@ class ReadCreate:
                                                 else:
                                                     yamlSubStr += f"\"{el.strip()}\", "
                                             yamlSubStr = yamlSubStr.strip(", ")
-                                            yamlLst.append(f"{key.lower()}: [{yamlSubStr}]")
+                                            yamlLst.append(f"{key}: [{yamlSubStr}]")
                                         else:
                                             # make value null if there is no value for the key
                                             if len(unformattedLst[idx]) == 0:
-                                                yamlLst.append(f"{key.lower()}: null")
+                                                yamlLst.append(f"{key}: null")
                                             else:
-                                                yamlLst.append(f"{key.lower()}: [\"{unformattedLst[idx]}\"]")
+                                                yamlLst.append(f"{key}: [\"{unformattedLst[idx]}\"]")
                                     f.write("---\n")
                                     f.write("\n".join(yamlLst))
                                     f.write("\n---\n")
