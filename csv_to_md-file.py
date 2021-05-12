@@ -222,11 +222,11 @@ class ReadCreate:
                         
                         # checks whether there is already a file with the same file name
                         if os.path.isfile(fileName):
-                            fileName += fileName + "_1"
+                            fileName = fileName + "_1"
                             while True:
                                 counter:int = 2
                                 if os.path.isfile(fileName):
-                                    fileName += fileName[:-1] + str(counter)
+                                    fileName = fileName[:-1] + str(counter)
                                     counter += 1
                                 else:
                                     break
