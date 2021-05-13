@@ -1,5 +1,4 @@
 import pprint
-import re
 
 # this class is for setting the default settings
 class Settings:
