@@ -1,5 +1,5 @@
 import pprint
-import csv
+import re
 
 # this class is for setting the default settings
 class Settings:
@@ -89,15 +89,31 @@ class Settings:
                 print("The length was not an integer. Please try again.")
 
         while True: 
-            fileNameCol = input("From which column should the file name be generated? (The first column has the number 1) ")
-            fileNameCol = fileNameCol.strip()
-            try:
-                fileNameCol = int(fileNameCol)
-                # decrement value by one to match index
-                self.current_settings["fileNameCol"] = fileNameCol - 1
-                break
-            except:
-                print("The column was not an integer. Please try again.")
+            print("From which column should the file name be generated?\n\
+                The program will prompt you for multiple columns. Input all the columns you wish to choose as file name.\n\
+                When you want to stop, just input \"n\". If you entered multiple columns, it will then prompt you for a separator.\n\
+                (The first column has the number 1)")
+            fileNameCol:list = []
+            colCounter:int = 1
+            while True:
+                col:str = input(f"Please enter the {colCounter}. column from which the file name should be generated ")
+                try:
+                    col = int(col)
+                    colCounter += 1
+                    fileNameCol.append(col - 1)
+                except:
+                    if col.lower().strip() == "n":
+                        break
+                    else:
+                        print("You did not enter a valid column number. Please try again.")
+
+            self.current_settings["fileNameCol"] = fileNameCol
+
+            fileNameColSeparator:str = ""
+            if len(fileNameCol) > 1:
+                fileNameColSeparator = input("Please enter the separator (including spaces; any illegal characters will be removed) ")
+                self.current_settings["fileNameColSeparator"] = fileNameColSeparator
+            break
         
         # to this the formattings of each column will be added
         self.current_settings["column"] = {}

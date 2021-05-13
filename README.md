@@ -4,7 +4,7 @@ This script converts every row of all CSV files in the working directory and sub
 
 This will ***not*** create a Markdown table.
 
-**It is still in early alpha, so please have backups!**
+**It is still in early alpha, so please have backups!** At this stage I may still introduce features that will break existing saved settings. When you update, you may need to update them/do the configuration again.
 
 **The encoding with which the files will be opened is UTF-8. Make sure that your CSV files are in that encoding, otherwise they might get screwed up. Again, please have backups**.
 
@@ -43,20 +43,23 @@ the same columns if you want the settings to be applied consistently/if you want
 
 ## Example settings
 
+Breaking change 2021/05/13: If you have existing settings from before this version, you will need to surround the corresponding value of 'fileNameCol' with square brackets.
+
 ```python
-save2 = {'addYAML': 'n',
+dndnew = {'addYAML': 'y',
  'column': {0: ['h1'],
-            1: ['st'],
-            2: ['ma'],
+            1: ['cb'],
+            2: ['hl'],
             3: ['ta', 'y', ','],
-            4: ['oc'],
+            4: ['bq'],
             5: ['ml'],
-            6: ['ut'],
-            7: ['ct'],
-            8: ['cb']},
+            6: ['st'],
+            7: ['mb'],
+            8: ['ut']},
  'delimiter': ',',
- 'fileNameCol': 0,
- 'fileNameLength': 10}
+ 'fileNameCol': [0, 1],
+ 'fileNameColSeparator': ' -- ',
+ 'fileNameLength': 30}
 ```
 
-You can create them manually as well, just make sure that all keys shown in the example settings are present.
+You can create them manually as well, just make sure that all keys shown in the example settings are present. 'fileNameColSeparator' is not needed, if there is only one element in 'fileNameCol'.

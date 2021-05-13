@@ -213,10 +213,20 @@ class ReadCreate:
                                     lst.append(formattedText)
 
 
-                        # accesses the column that was selected for the file name
-                        fileName:str = str(row[self.settings["fileNameCol"]])
+                        # accesses the column(s) that was/were selected for the file name
+                        fileName:str = ""
+                        if len(self.settings["fileNameCol"]) > 1:
+                            for idx, el in enumerate(self.settings["fileNameCol"]):
+                                if len(self.settings["fileNameCol"]) - 1 == idx:
+                                    fileName += row[el]
+                                else:
+                                    fileName += row[el] + self.settings["fileNameColSeparator"]
+                        else:
+                            fileName = row[int(*self.settings["fileNameCol"],)]
+
                         # limit the file name to the specified length 
                         fileName = fileName[:self.settings["fileNameLength"]]
+                        fileName = fileName.strip()
                         # create the final file name
                         fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName)
                         
