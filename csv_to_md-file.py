@@ -221,14 +221,14 @@ class ReadCreate:
                         fileName = "./data/" + re.sub(r"<|>|:|\"|/|\\|\||\?|\*|\[|\]", "", fileName)
                         
                         # checks whether there is already a file with the same file name
+                        # if so, then it will append _{counter} to it
                         if os.path.isfile(fileName + ".md"):
-                            fileName = fileName + "_1"
+                            counter:int = 1
                             while True:
-                                counter:int = 2
-                                if os.path.isfile(fileName + ".md"):
-                                    fileName = fileName[:-1] + str(counter)
+                                if os.path.isfile(fileName + "_" + str(counter) + ".md"):
                                     counter += 1
                                 else:
+                                    fileName += "_" + str(counter)
                                     break
                         fileName += ".md"
 
