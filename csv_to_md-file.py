@@ -53,6 +53,15 @@ class GetInput:
             instanceFile.getYamlKeys()
             # creates the md files
             instanceFile.makeMdFiles()
+        elif self.settings["inlineYAML"] == "y":
+            # instantiate ReadCreate for reading the CSV files
+            instanceFile = ReadCreate(self.settings, False, True)
+            if self.loadSettings == "n":
+                print("Now you will set the formatting for all of the columns one by one.")
+                instanceFile.getCellSettings()
+            instanceFile.getYamlKeys()
+            # creates the md files
+            instanceFile.makeMdFiles()
         else:
             # instantiates the ReadCreate class and finds the csv files
             instanceFile = ReadCreate(self.settings, False)
@@ -65,11 +74,12 @@ class GetInput:
 
 class ReadCreate:
 
-    def __init__(self, settings:dict, yaml:bool=False):
+    def __init__(self, settings:dict, yaml:bool=False, inlineyaml:bool=False):
         # will be populated with the contents of the first row of the first csv file as the values
         # the key is `yaml_keys`
         self.keyList:list = []
         self.yaml:bool = yaml
+        self.inlineyaml:bool = inlineyaml
         self.csvFiles:list= [] 
         # instantiate appSettings with the GetInput class to get access to the user settings
         self.settings = settings
@@ -208,9 +218,12 @@ class ReadCreate:
                                 lst.append(splitSublist)
                             else:
                                 formattedText:list = self.returnFormatting(row[el], self.settings["column"][el][0])
-                                # don't append empty cells
+                                # only append "null" to the list of formatted content when there is no content when self.inlineyaml is True
+                                # this will mean that the inline YAML keys can all be matched in enumerate and that it doesn't fail
                                 if formattedText != None:
                                     lst.append(formattedText)
+                                elif formattedText == None and self.inlineyaml == True:
+                                    lst.append("null")
 
 
                         # accesses the column(s) that was/were selected for the file name
@@ -242,6 +255,7 @@ class ReadCreate:
                                     break
                         fileName += ".md"
 
+                        # write the contents to the file
                         try:
                             # creates a .md file in the data folder in append mode
                             with open (fileName, "a", encoding='utf-8') as f:
@@ -272,7 +286,15 @@ class ReadCreate:
                                     f.write("\n---\n")
                                     # write the rest of the file
                                     f.write("\n\n".join(lst))
-                                # if YAML is not selected to be written, only the main content will be written
+                                # for inline yaml append key and formatted values to list
+                                elif self.inlineyaml == True:
+                                    inlineyamlLst:list = []
+                                    for idx, key in enumerate(self.keys):
+                                        key = key.replace("\ufeff", "")
+                                        value = lst[idx].replace("\n", " ")
+                                        inlineyamlLst.append(f"{key}:: {value}")
+                                    f.write("\n".join(inlineyamlLst))
+                                # if neither YAML nor inline YAML is selected to be written, only the main content will be written
                                 else:
                                     f.write("\n\n".join(lst))
                         except:

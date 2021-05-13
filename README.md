@@ -1,6 +1,6 @@
 # CSV to Markdown converter
 
-This script converts every row of all CSV files in the working directory and subdirectories into markdown files according to the formatting settings you choose per column.
+This script converts every row of all CSV files in the working directory and subdirectories into Markdown files according to the formatting settings you choose per column.
 
 This will ***not*** create a Markdown table.
 
@@ -27,12 +27,15 @@ The outputted Markdown files will appear in the `./data/` subdirectory. (No need
 You can:
 
 - add everything as YAML frontmatter
+- only write the contens of the CSV files as inline YAML (instead of having the contents as frontmatter YAML and/or Markdown)
 - choose the delimiter of your CSV files
 - the maximum file name length
 - from which column the file name should be generated
-- choose the markdown formatting for each column
+- choose the Markdown formatting for each column
 - write the chosen settings to `saved_settings.py`
-- or read settings you set before.
+- read settings you set before.
+
+File name collisions are handles by appending `_<number>` to the file name.
 
 ## How it works
 
@@ -45,21 +48,34 @@ the same columns if you want the settings to be applied consistently/if you want
 
 Breaking change 2021/05/13: If you have existing settings from before this version, you will need to surround the corresponding value of 'fileNameCol' with square brackets.
 
+If you choose to add frontmatter YAML, you cannot add inline YAML.
+Your choice for inline YAML will have now effect in that case.
+If you only want to have inline YAML, select no for fronmatter YAML and yes for inline YAML.
+When you select yes for inline YAML, only inline YAML will be added to the file
+(but the values will be with Markdown formatting).
+
 ```python
-dndnew = {'addYAML': 'y',
- 'column': {0: ['h1'],
-            1: ['cb'],
-            2: ['hl'],
+save2 = {'addYAML': 'n',
+ 'column': {0: ['h2'],
+            1: ['ul'],
+            2: ['ta'],
             3: ['ta', 'y', ','],
-            4: ['bq'],
+            4: ['oc'],
             5: ['ml'],
-            6: ['st'],
-            7: ['mb'],
+            6: ['ta'],
+            7: ['ut'],
             8: ['ut']},
  'delimiter': ',',
  'fileNameCol': [0, 1],
  'fileNameColSeparator': ' -- ',
- 'fileNameLength': 30}
+ 'fileNameLength': 50,
+ 'inlineYAML': 'y'}
 ```
 
-You can create them manually as well, just make sure that all keys shown in the example settings are present. 'fileNameColSeparator' is not needed, if there is only one element in 'fileNameCol'.
+
+## Remarks for manually editing the settings
+
+You can create them manually as well/edit them after using the script.
+
+'fileNameColSeparator' is not needed, if there is only one element in 'fileNameCol'. 'inlineYAML' is only needed when you
+don't choose to add frontmatter YAML. If you let the script take care of everything, you don't need to worry about it.

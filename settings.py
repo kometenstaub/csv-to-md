@@ -40,9 +40,17 @@ class Settings:
 
     def setGeneralSettings(self):
 
+        print("""
+If you choose to add frontmatter YAML, you cannot add inline YAML.\n\
+Your choice for inline YAML will have now effect in that case.\n\
+If you only want to have inline YAML, select no for fronmatter YAML and yes for inline YAML.\n\
+When you select yes for inline YAML, only inline YAML will be added to the file (but the values\n\
+will be with Markdown formatting).
+            """)
+
         # checks if the user wants to add the contents as YAML metadata
         while True: 
-            addYAML = input("Do you want to have all the entries as YAML metadata? Enter \"y\" for yes and \"n\" for no: ")
+            addYAML = input("Do you want to have all the entries as frontmatter YAML metadata? Enter \"y\" for yes and \"n\" for no: ")
             addYAML = addYAML.lower().strip()
             if addYAML != "y" and addYAML != "n":
                 print("You didn't enter \"y\" or \"n\"")
@@ -51,6 +59,19 @@ class Settings:
                 break
             elif addYAML == "n":
                 self.current_settings["addYAML"] = "n"
+                break
+        
+        # checks if the user wants to add the contents as inline YAML
+        while True: 
+            inlineYAML = input("Do you want to have all the entries as inline YAML? Enter \"y\" for yes and \"n\" for no: ")
+            inlineYAML = inlineYAML.lower().strip()
+            if inlineYAML != "y" and inlineYAML != "n":
+                print("You didn't enter \"y\" or \"n\"")
+            elif inlineYAML == "y":
+                self.current_settings["inlineYAML"] = "y"
+                break
+            elif inlineYAML == "n":
+                self.current_settings["inlineYAML"] = "n"
                 break
                         
         # set the delimiter
@@ -89,10 +110,12 @@ class Settings:
                 print("The length was not an integer. Please try again.")
 
         while True: 
-            print("From which column should the file name be generated?\n\
-                The program will prompt you for multiple columns. Input all the columns you wish to choose as file name.\n\
-                When you want to stop, just input \"n\". If you entered multiple columns, it will then prompt you for a separator.\n\
-                (The first column has the number 1)")
+            print("""
+From which column should the file name be generated?\n\
+The program will prompt you for multiple columns. Input all the columns you wish to choose as file name.\n\
+When you want to stop, just input \"n\". If you entered multiple columns, it will then prompt you for a separator.\n\
+(The first column has the number 1)
+""")
             fileNameCol:list = []
             colCounter:int = 1
             while True:
