@@ -255,55 +255,62 @@ class ReadCreate:
                                     break
                         fileName += ".md"
 
-                        # write the contents to the file
+                        # string which will be written to the file
+                        strToWrite:str = ""
+
+                        # make the string which will be written to the file
                         try:
-                            # creates a .md file in the data folder in append mode
-                            with open (fileName, "a", encoding='utf-8') as f:
-                                if self.yaml == True:
-                                    yamlLst:list = []
-                                    for idx, key in enumerate(self.keys):
-                                        # replace UTF-8 BOM, should be handled better/perhaps with user option to specify the encoding of the csv file
-                                        key = key.replace("\ufeff", "")
-                                        # unpack if list and make separate values for the key in the YAML
-                                        if len(self.settings["column"][idx]) > 1:
-                                            yamlSubLst:list = unformattedLst[idx].split(self.settings["column"][idx][2])
-                                            yamlSubStr:str = ""
-                                            for el in yamlSubLst:
-                                                if len(el) == 0:
-                                                    continue
-                                                else:
-                                                    yamlSubStr += f"\"{el.strip()}\", "
-                                            yamlSubStr = yamlSubStr.strip(", ")
-                                            yamlLst.append(f"{key}: [{yamlSubStr}]")
-                                        else:
-                                            # make value null if there is no value for the key
-                                            if len(unformattedLst[idx]) == 0:
-                                                yamlLst.append(f"{key}: null")
+                            if self.yaml == True:
+                                yamlLst:list = []
+                                for idx, key in enumerate(self.keys):
+                                    # replace UTF-8 BOM, should be handled better/perhaps with user option to specify the encoding of the csv file
+                                    key = key.replace("\ufeff", "")
+                                    # unpack if list and make separate values for the key in the YAML
+                                    if len(self.settings["column"][idx]) > 1:
+                                        yamlSubLst:list = unformattedLst[idx].split(self.settings["column"][idx][2])
+                                        yamlSubStr:str = ""
+                                        for el in yamlSubLst:
+                                            if len(el) == 0:
+                                                continue
                                             else:
-                                                yamlLst.append(f"{key}: [\"{unformattedLst[idx]}\"]")
-                                    f.write("---\n")
-                                    f.write("\n".join(yamlLst))
-                                    f.write("\n---\n")
-                                    # write the rest of the file
-                                    f.write("\n\n".join(lst))
-                                # for inline yaml append key and formatted values to list
-                                elif self.inlineyaml == True:
-                                    inlineyamlLst:list = []
-                                    for idx, key in enumerate(self.keys):
-                                        key = key.replace("\ufeff", "")
-                                        value = lst[idx].replace("\n", " ")
-                                        inlineyamlLst.append(f"{key}:: {value}")
-                                    f.write("\n".join(inlineyamlLst))
-                                # if neither YAML nor inline YAML is selected to be written, only the main content will be written
-                                else:
-                                    f.write("\n\n".join(lst))
+                                                yamlSubStr += f"\"{el.strip()}\", "
+                                        yamlSubStr = yamlSubStr.strip(", ")
+                                        yamlLst.append(f"{key}: [{yamlSubStr}]")
+                                    else:
+                                        # make value null if there is no value for the key
+                                        if len(unformattedLst[idx]) == 0:
+                                            yamlLst.append(f"{key}: null")
+                                        else:
+                                            yamlLst.append(f"{key}: [\"{unformattedLst[idx]}\"]")
+                                strToWrite += "---\n"
+                                strToWrite += "\n".join(yamlLst)
+                                strToWrite += "\n---\n"
+                                # append the rest of the file
+                                strToWrite += "\n\n".join(lst)
+                            # for inline yaml append key and formatted values to list
+                            elif self.inlineyaml == True:
+                                inlineyamlLst:list = []
+                                for idx, key in enumerate(self.keys):
+                                    key = key.replace("\ufeff", "")
+                                    value = lst[idx].replace("\n", " ")
+                                    inlineyamlLst.append(f"{key}:: {value}")
+                                strToWrite += "\n".join(inlineyamlLst)
+                            # if neither YAML nor inline YAML is selected to be written, only the main content will be written
+                            else:
+                                strToWrite += "\n\n".join(lst)                           
+                            
+                            # creates a .md file in the data folder with the string from above
+                            with open (fileName, "w", encoding='utf-8') as f:
+                                f.write(strToWrite)
+                                
                         except:
                             # remove the file that was erroneously created
+                            # shouldn't happen anymore unless there was an error when opening/writing to the file
                             if os.path.isfile(fileName):
                                 os.remove(fileName)
                             # log the error to log.txt
                             with open("log.txt", "a", encoding='utf-8') as m:
-                                m.write(fileName + " -- The contents of this file could not be written.\n")
+                                m.write(fileName + " -- Error.\n")
 
     def splitSubList(self, sublist, formatting):
         sublist_str:str = ""
