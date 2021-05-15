@@ -20,7 +20,22 @@ Run `csv_to_md-file.py` in the terminal *from the directory in which these files
 
 It will prompt you for your choices.
 
+![GIF showing usage](./example/csv-md-YAML.gif)
+
 The outputted Markdown files will appear in the `./data/` subdirectory. (No need to create it, the program takes care of it.)
+
+As example one of the outputted Markdown files (with the example CSV file and settings from the GIF) looks like this:
+
+![example of output](./example/result.png)
+
+You can try it out with different settings with the example CSV file. (Not included so that you don't have to delete it every time you pull again to update, just copy the contents below in a CSV file and run the script.)
+
+```csv
+Series,Season,Watch_Time,Status,Current_Episode,Rating
+How I met your Mother,2,20 hours,unfinished,2,good
+The Big Bang Theory,4,30 hours,unfinished,12,great
+Black Mirror,2,10 hours,unfinished,1,fantastic
+```
 
 ## Options
 
