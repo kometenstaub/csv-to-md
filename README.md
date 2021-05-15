@@ -28,6 +28,10 @@ As example one of the outputted Markdown files (with the example CSV file and se
 
 ![example of output](./example/result.png)
 
+If you choose "no" for frontmatter YAML and "yes" for inline YAML, the result will look like this:
+
+![example of output -- inline YAML](./example/result2.png)
+
 You can try it out with different settings with the example CSV file. (Not included so that you don't have to delete it every time you pull again to update, just copy the contents below in a CSV file and run the script.)
 
 ```csv
