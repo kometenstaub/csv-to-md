@@ -107,7 +107,7 @@ class ReadCreate:
                 if csvFileReader.line_num == 1:
                     # is needed to make sure that the list of all available options is only shown for the first column of the first row
                     for el in range(len(row)):
-                        self.keys.append(row[el])
+                        self.keys.append(row[el].replace(" ", "_"))
                     # break so that it doesn't loop again
                     break
 
