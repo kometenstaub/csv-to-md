@@ -54,7 +54,7 @@ You can:
 - write the chosen settings to `saved_settings.py`
 - read settings you set before.
 
-File name collisions are handles by appending `_<number>` to the file name.
+File name collisions are handled by appending `_<number>` to the file name.
 
 ## How it works
 
